@@ -1,10 +1,13 @@
 package com.rodrigoramos.registration.dto;
 
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class PersonNewDTO {
 
     private String fullName;
