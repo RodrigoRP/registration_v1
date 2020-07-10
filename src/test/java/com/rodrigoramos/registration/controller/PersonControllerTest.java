@@ -6,7 +6,6 @@ import com.rodrigoramos.registration.mapper.PersonMapper;
 import com.rodrigoramos.registration.model.Person;
 import com.rodrigoramos.registration.service.exception.ObjectNotFoundException;
 import com.rodrigoramos.registration.service.impl.PersonServiceImpl;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +20,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
