@@ -1,9 +1,9 @@
 package com.rodrigoramos.registration.service.exception;
 
-public class ObjectNotFoundException extends RuntimeException {
+public class DataIntegrityException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    public ObjectNotFoundException(String message) {
+    public DataIntegrityException(String message) {
         super(message);
     }
 }

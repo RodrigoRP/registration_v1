@@ -12,12 +12,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
+import static org.mockito.BDDMockito.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PersonServiceTest {
@@ -54,7 +56,7 @@ class PersonServiceTest {
                 .fullName("Adamastor Silva")
                 .nationality("Brazilian")
                 .placeOfBirth("Florianópolis")
-                .gender("Masculino")
+               // .gender("Male")
                 .build();
         given(personRepository.findById(1L)).willReturn(Optional.of(person));
 
@@ -76,5 +78,38 @@ class PersonServiceTest {
         Assertions.assertTrue(exception.getMessage().contains("not found"));
     }
 
+    @Test
+    @DisplayName("Test findAll Success")
+    void findAllPersonTest() {
+        //given
+        List<Person> personList = new ArrayList<>();
+        personList.add(new Person());
+        personList.add(new Person());
+        given(personRepository.findAll()).willReturn(personList);
+
+        //when
+        List<Person> returnedList = personService.findAll();
+
+        //then
+        Assertions.assertEquals(personList, returnedList);
+        then(personRepository).should().findAll();
+    }
+
+    @Test
+    @DisplayName("Test deleteById Success")
+    void deleteByIdTest() {
+        //given
+        Person person = new Person();
+        person.setId(1L);
+        given(personRepository.findById(1L)).willReturn(Optional.of(person));
+
+        //when
+        personService.deleteById(1L);
+        personService.deleteById(1L);
+        personService.deleteById(1L);
+
+        //then
+        then(personRepository).should(times(3)).deleteById(1L);
+    }
 
 }

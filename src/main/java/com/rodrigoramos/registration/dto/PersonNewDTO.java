@@ -1,21 +1,23 @@
 package com.rodrigoramos.registration.dto;
 
+import com.rodrigoramos.registration.model.enums.GenderPerson;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.io.Serializable;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class PersonNewDTO {
+public class PersonNewDTO implements Serializable {
 
     private String fullName;
-    private String gender;
+    private GenderPerson gender;
     private String email;
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
     private String placeOfBirth;
     private String nationality;
     private String cpf;
+
 }

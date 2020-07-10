@@ -7,6 +7,7 @@ import com.rodrigoramos.registration.service.exception.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -26,4 +27,16 @@ public class PersonServiceImpl implements PersonService {
         return person.orElseThrow(() -> new ObjectNotFoundException(
                 "Person not found! Id: " + id + ", Tipo: " + Person.class.getName()));
     }
+
+    @Override
+    public List<Person> findAll() {
+        return personRepository.findAll();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        findById(id);
+        personRepository.deleteById(id);
+    }
+
 }

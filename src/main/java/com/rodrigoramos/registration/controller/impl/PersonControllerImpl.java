@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -36,5 +37,19 @@ public class PersonControllerImpl implements PersonController {
     public ResponseEntity<Person> findById(@PathVariable Long id) {
         Person person = personService.findById(id);
         return ResponseEntity.ok().body(person);
+    }
+
+    @Override
+    @GetMapping("/")
+    public ResponseEntity<List<Person>> findAll() {
+        List<Person> personList = personService.findAll();
+        return ResponseEntity.ok().body(personList);
+    }
+
+    @Override
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        personService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
