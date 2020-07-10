@@ -22,7 +22,7 @@ public class PersonControllerImpl implements PersonController {
 
     @Override
     @PostMapping
-    public ResponseEntity<Void> save(PersonNewDTO personNewDTO) {
+    public ResponseEntity<Void> save(@RequestBody PersonNewDTO personNewDTO) {
         Person person = personMapper.toModel(personNewDTO);
         person = personService.save(person);
 
