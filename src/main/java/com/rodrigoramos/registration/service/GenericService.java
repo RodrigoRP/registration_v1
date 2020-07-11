@@ -11,4 +11,6 @@ public interface GenericService<E, M> {
     List<E> findAll();
 
     void deleteById(M id);
+
+  //  E update(E entity, M id);
 }

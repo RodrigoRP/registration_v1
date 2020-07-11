@@ -45,6 +45,8 @@ class PersonControllerTest {
     PersonMapper personMapper;
 
     PersonNewDTO personNewDTO;
+    PersonNewDTO personNewDTO2;
+    PersonNewDTO personNewDTO3;
     Person person;
 
     @BeforeEach
@@ -53,6 +55,26 @@ class PersonControllerTest {
                 .cpf("73512731031")
                 //.dateOfBirth(LocalDate.of(2000, 12, 12))
                 .email("adamastor@bol.com.br")
+                .fullName("Adamastor Silva")
+                //.gender("Male")
+                .nationality("Brazilian")
+                .placeOfBirth("São Paulo")
+                .build();
+
+        personNewDTO2 = PersonNewDTO.builder()
+                .cpf("73512731031")
+                //.dateOfBirth(LocalDate.of(2000, 12, 12))
+                .email("adamastor@bol.com.br")
+                //.fullName("Adamastor Silva")
+                //.gender("Male")
+                .nationality("Brazilian")
+                .placeOfBirth("São Paulo")
+                .build();
+
+        personNewDTO3 = PersonNewDTO.builder()
+                .cpf("73512731031")
+                //.dateOfBirth(LocalDate.of(2000, 12, 12))
+                .email("adamastorbol.com.br")
                 .fullName("Adamastor Silva")
                 //.gender("Male")
                 .nationality("Brazilian")
@@ -71,6 +93,28 @@ class PersonControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(personNewDTO)))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    @DisplayName("POST /api/v1/register/person")
+    void savePersonNoNameTest() throws Exception {
+        doReturn(person).when(service).save(any());
+
+        mockMvc.perform(post(BASE_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(personNewDTO2)))
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+   @Test
+    @DisplayName("POST /api/v1/register/person")
+    void savePersonInvalidEmailTest() throws Exception {
+        doReturn(person).when(service).save(any());
+
+        mockMvc.perform(post(BASE_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(personNewDTO3)))
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test

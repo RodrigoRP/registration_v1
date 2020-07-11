@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class PersonControllerImpl implements PersonController {
 
     @Override
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody PersonNewDTO personNewDTO) {
+    public ResponseEntity<Void> save(@Valid @RequestBody PersonNewDTO personNewDTO) {
         Person person = personMapper.toModel(personNewDTO);
         person = personService.save(person);
 
