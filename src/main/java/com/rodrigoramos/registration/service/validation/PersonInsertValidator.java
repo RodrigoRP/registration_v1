@@ -1,7 +1,7 @@
 package com.rodrigoramos.registration.service.validation;
 
 import com.rodrigoramos.registration.controller.exception.FieldMessage;
-import com.rodrigoramos.registration.dto.PersonNewDTO;
+import com.rodrigoramos.registration.dto.PersonNewDto;
 import com.rodrigoramos.registration.model.Person;
 import com.rodrigoramos.registration.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,9 +10,10 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
-public class PersonInsertValidator implements ConstraintValidator<PersonInsert, PersonNewDTO> {
+public class PersonInsertValidator implements ConstraintValidator<PersonInsert, PersonNewDto> {
 
     private final PersonRepository repository;
 
@@ -22,12 +23,17 @@ public class PersonInsertValidator implements ConstraintValidator<PersonInsert, 
     }
 
     @Override
-    public boolean isValid(PersonNewDTO personNewDTO, ConstraintValidatorContext context) {
+    public boolean isValid(PersonNewDto personNewDTO, ConstraintValidatorContext context) {
         List<FieldMessage> list = new ArrayList<>();
 
-        Person email = repository.findByEmail(personNewDTO.getEmail());
-        if (email != null) {
+        Optional<Person> personByEmail = repository.findByEmail(personNewDTO.getEmail());
+        Optional<Person> personByCpf = repository.findByCpf(personNewDTO.getCpf());
+
+        if (personByEmail.isPresent()) {
             list.add(new FieldMessage("email", "Email already exists'"));
+        }
+        if (personByCpf.isPresent()) {
+            list.add(new FieldMessage("cpf", "CPF already exists'"));
         }
 
         for (FieldMessage e : list) {

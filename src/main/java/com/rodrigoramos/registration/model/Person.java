@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Builder
@@ -16,7 +15,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-public class Person implements Serializable {
+public class Person extends Auditable<String> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

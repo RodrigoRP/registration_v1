@@ -5,11 +5,11 @@ import com.rodrigoramos.registration.service.validation.PersonInsert;
 import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 
-import javax.persistence.Column;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Builder
 @AllArgsConstructor
@@ -17,9 +17,9 @@ import java.io.Serializable;
 @Getter
 @Setter
 @PersonInsert
-public class PersonNewDTO implements Serializable {
+public class PersonNewDto implements Serializable {
 
-    @NotEmpty(message = "Name cannot be null")
+    @NotNull(message = "Name cannot be null")
     private String fullName;
 
     @Enumerated
@@ -28,14 +28,13 @@ public class PersonNewDTO implements Serializable {
     @Email(message = "Email should be valid")
     private String email;
 
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
 
     private String placeOfBirth;
 
     private String nationality;
 
     @CPF(message = "Invalid CPF")
-    @Column(unique = true)
     private String cpf;
 
 }

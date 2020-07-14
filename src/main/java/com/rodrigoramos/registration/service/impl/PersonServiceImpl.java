@@ -6,6 +6,7 @@ import com.rodrigoramos.registration.service.PersonService;
 import com.rodrigoramos.registration.service.exception.ObjectNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +18,7 @@ public class PersonServiceImpl implements PersonService {
     private final PersonRepository personRepository;
 
     @Override
+    @Transactional
     public Person save(Person entity) {
         return personRepository.save(entity);
     }
@@ -34,6 +36,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         findById(id);
         personRepository.deleteById(id);

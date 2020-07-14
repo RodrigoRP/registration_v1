@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-@Profile("test")
+@Profile("dev")
 @RequiredArgsConstructor
 @Component
 public class BootstrapData implements CommandLineRunner {
@@ -36,7 +36,7 @@ public class BootstrapData implements CommandLineRunner {
                 .cpf("55685220065")
                 .email("maria@bol.com.br")
                 .fullName("Maria Silva ")
-                //.gender(1)
+                .gender(GenderPerson.toEnum(2))
                 .nationality("Brazilian")
                 .placeOfBirth("Rio de Janeiro")
                 .dateOfBirth(LocalDate.of(1930, 10, 10))
