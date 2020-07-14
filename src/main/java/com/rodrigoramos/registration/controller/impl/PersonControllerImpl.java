@@ -6,7 +6,6 @@ import com.rodrigoramos.registration.dto.PersonUpdateDto;
 import com.rodrigoramos.registration.mapper.PersonMapper;
 import com.rodrigoramos.registration.model.Person;
 import com.rodrigoramos.registration.service.PersonService;
-import com.rodrigoramos.registration.utils.JsonNullableUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -73,22 +72,11 @@ public class PersonControllerImpl implements PersonController {
         return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
     }
 
+    @Override
     @PatchMapping("/{id}")
-    public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody PersonUpdateDto personUpdateDto) {
-        Person person = personService.findById(id);
-
-        if(person == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        JsonNullableUtils.changeIfPresent(personUpdateDto.getFullName(), person::setFullName);
-        JsonNullableUtils.changeIfPresent(personUpdateDto.getEmail(), person::setEmail);
-        JsonNullableUtils.changeIfPresent(personUpdateDto.getPlaceOfBirth(), person::setPlaceOfBirth);
-        JsonNullableUtils.changeIfPresent(personUpdateDto.getNationality(), person::setNationality);
-
-        personService.save(person);
-
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Person> update(@PathVariable Long id, @RequestBody PersonUpdateDto personUpdateDto) {
+        Person updatedPerson = personService.update(personUpdateDto, id);
+        return ResponseEntity.ok().body(updatedPerson);
     }
 /*
     @GetMapping("/username")

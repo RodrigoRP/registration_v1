@@ -12,5 +12,5 @@ public interface GenericService<E, M> {
 
     void deleteById(M id);
 
-  //  E update(E entity, M id);
+    //void update(E entity, M id);
 }

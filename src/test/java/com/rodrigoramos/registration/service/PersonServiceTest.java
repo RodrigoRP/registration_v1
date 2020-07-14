@@ -1,5 +1,6 @@
 package com.rodrigoramos.registration.service;
 
+import com.rodrigoramos.registration.dto.PersonUpdateDto;
 import com.rodrigoramos.registration.model.Person;
 import com.rodrigoramos.registration.repository.PersonRepository;
 import com.rodrigoramos.registration.service.exception.ObjectNotFoundException;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,6 +111,30 @@ class PersonServiceTest {
 
         //then
         then(personRepository).should(times(3)).deleteById(1L);
+    }
+
+    @Test
+    @DisplayName("Test update Success")
+    void updateByIdTest() {
+        //given
+        Person person = Person.builder()
+                .id(1L)
+                .cpf("70804614059")
+                .email("adamastor@bol.com.br")
+                .fullName("Adamastor Silva")
+                .nationality("Brazilian")
+                .placeOfBirth("Florianópolis")
+                .build();
+        PersonUpdateDto personUpdateDto = new PersonUpdateDto();
+        personUpdateDto.setFullName(JsonNullable.of("Ronaldo"));
+
+        given(personRepository.findById(1L)).willReturn(Optional.of(person));
+
+        //when
+        Person updatedPerson = personService.update(personUpdateDto, 1L);
+
+        //then
+        Assertions.assertEquals("Ronaldo", person.getFullName());
     }
 
 }

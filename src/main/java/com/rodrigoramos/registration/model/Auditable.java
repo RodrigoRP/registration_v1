@@ -1,5 +1,6 @@
 package com.rodrigoramos.registration.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
@@ -22,17 +23,20 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @EntityListeners(AuditingEntityListener.class)
 public class Auditable<U> {
 
+    @JsonIgnore
     @CreatedBy
     private U createdBy;
 
+    @JsonIgnore
     @CreatedDate
     @Temporal(TIMESTAMP)
     private Date createdDate;
 
+    @JsonIgnore
     @LastModifiedBy
     private U lastModifiedBy;
 
-
+    @JsonIgnore
     @LastModifiedDate
     @Temporal(TIMESTAMP)
     private Date lastModifiedDate;

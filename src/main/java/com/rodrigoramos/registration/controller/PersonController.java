@@ -1,6 +1,7 @@
 package com.rodrigoramos.registration.controller;
 
 import com.rodrigoramos.registration.dto.PersonNewDto;
+import com.rodrigoramos.registration.dto.PersonUpdateDto;
 import com.rodrigoramos.registration.model.Person;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,6 +24,9 @@ public interface PersonController {
 
     @ApiOperation("Delete person based on primary key")
     ResponseEntity<Void> delete(Long id);
+
+    @ApiOperation("Update person based on primary key")
+    ResponseEntity<Person> update(Long id, PersonUpdateDto personUpdateDto);
 }
 
 /*
